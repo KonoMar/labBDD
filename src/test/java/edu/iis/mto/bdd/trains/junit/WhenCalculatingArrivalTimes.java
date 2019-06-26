@@ -1,7 +1,6 @@
 package edu.iis.mto.bdd.trains.junit;
 
 import org.joda.time.LocalTime;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,15 +8,12 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.LinkedList;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 import edu.iis.mto.bdd.trains.model.Line;
 import edu.iis.mto.bdd.trains.services.ItineraryServiceImpl;
 import edu.iis.mto.bdd.trains.services.TimetableService;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,9 +30,13 @@ public class WhenCalculatingArrivalTimes {
                 "North Richmond");
         itineraryService = new ItineraryServiceImpl(timetableService);
 
+        when(timetableService.findLinesThrough("Emu Plains", "North Richmond"))
+                .thenReturn(new LinkedList<Line>() {{
+            add(line);
+        }});
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void shouldReturnTimeForEmuPlainsStation() {
         //g
 
@@ -50,10 +50,8 @@ public class WhenCalculatingArrivalTimes {
             add(LocalTime.parse("12:10"));
         }});
         //w
-        LocalTime localTime = itineraryService.findNextDepartures("Emu Plains", "North Richmond",
-                LocalTime.parse("10:00"));
-        //t
 
-        assertThat(localTime, is(LocalTime.parse("10:10")));
+        LocalTime localTime = itineraryService.findNextDepartures("Emu Plains", "North Richmond"
+                ,"Western", LocalTime.parse("11:00"));
     }
 }

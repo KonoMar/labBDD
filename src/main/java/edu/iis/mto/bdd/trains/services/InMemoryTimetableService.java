@@ -18,7 +18,16 @@ public class InMemoryTimetableService implements TimetableService {
             Line.named("Western").departingFrom("North Richmond").withStations("North Richmond", "Town Hall",
                     "Parramatta", "Emu Plains"),
             Line.named("Epping").departingFrom("Epping").withStations("Epping", "Strathfield", "Central"),
+            Line.named("Northern").departingFrom("Epping").withStations("Epping", "Strathfield",
+                    "Strathfield2", "Strathfield3", "Strathfield4", "Strathfield4i3/4",
+                    "Strathfield5", "Strathfield6",
+                    "Central"),
+            Line.named("Newcastle").departingFrom("Epping").withStations("Epping", "Strathfield",
+                    "Strathfield2", "Strathfield3", "Strathfield4", "Strathfield4i3/4",
+                    "Strathfield5", "Strathfield6",
+                    "Central"),
             Line.named("Epping").departingFrom("City").withStations("Central", "Strathfield", "Epping"));
+
 
     // All trains leave the depots at the same time.
     List<LocalTime> universalDepartureTimes = ImmutableList.of(new LocalTime(7, 53), new LocalTime(7, 55),

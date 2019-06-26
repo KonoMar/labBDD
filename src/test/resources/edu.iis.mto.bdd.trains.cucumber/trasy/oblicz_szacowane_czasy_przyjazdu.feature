@@ -11,5 +11,5 @@ Funkcja: Informacja dla podróżnych o czasie przybycia do stacji docelowej
     Wtedy powinienem uzyskać następujący szacowany czas przyjazdu: "<czas przyjazdu>"
     Przykłady:
       | miasto poczatkowe | miasto docelowe | czas odjazdu | nazwa lini | czas przyjazdu
-      | Epping            | Central         | 8:03         | Northern   | 8:48           |
-      | Epping            | Central         | 8:07         | Newcastle  | 8:37           |
+      | Epping            | Central         | 8:03         | Northern   | 8:46           |
+      | Epping            | Central         | 8:07         | Newcastle  | 8:50           |
