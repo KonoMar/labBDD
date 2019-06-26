@@ -15,4 +15,6 @@ public interface TimetableService {
     void scheduleArrivalTime(String line, LocalTime departureTime);
 
     LocalTime getArrivalTime(String travellingOnLine, String destination);
+
+    void setUniversalDepartureTimes(List<LocalTime> universalDepartureTimes);
 }

@@ -12,6 +12,8 @@ import edu.iis.mto.bdd.trains.model.Line;
 
 public class InMemoryTimetableService implements TimetableService {
 
+    int timeTaken = 0;
+
     List<Line> lines = ImmutableList.of(
             Line.named("Western").departingFrom("Emu Plains").withStations("Emu Plains", "Parramatta", "Town Hall",
                     "North Richmond"),
@@ -27,11 +29,25 @@ public class InMemoryTimetableService implements TimetableService {
                     "Strathfield5", "Strathfield6",
                     "Central"),
             Line.named("Epping").departingFrom("City").withStations("Central", "Strathfield", "Epping"));
+    private int shift = 5;
 
+    public List<LocalTime> getUniversalDepartureTimes() {
+        return universalDepartureTimes;
+    }
+
+    public void setUniversalDepartureTimes(List<LocalTime> universalDepartureTimes) {
+        this.universalDepartureTimes = universalDepartureTimes;
+        shift = 0;
+    }
 
     // All trains leave the depots at the same time.
-    List<LocalTime> universalDepartureTimes = ImmutableList.of(new LocalTime(7, 53), new LocalTime(7, 55),
-            new LocalTime(7, 57), new LocalTime(8, 6), new LocalTime(8, 9), new LocalTime(8, 16));
+    private List<LocalTime> universalDepartureTimes = ImmutableList.of(
+            new LocalTime(7, 53),
+            new LocalTime(7, 55),
+            new LocalTime(7, 57),
+            new LocalTime(8, 6),
+            new LocalTime(8, 9),
+            new LocalTime(8, 16));
 
     @Override
     public List<LocalTime> findArrivalTimes(Line line, String targetStation) {
@@ -41,7 +57,7 @@ public class InMemoryTimetableService implements TimetableService {
             if (station.equals(targetStation)) {
                 break;
             }
-            timeTaken += 5;
+            timeTaken += shift;
         }
         List<LocalTime> arrivalTimes = Lists.newArrayList();
         for (LocalTime time : universalDepartureTimes) {
