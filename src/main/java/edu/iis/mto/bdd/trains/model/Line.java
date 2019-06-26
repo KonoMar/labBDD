@@ -2,6 +2,7 @@ package edu.iis.mto.bdd.trains.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.collect.ImmutableList;
 
@@ -36,7 +37,7 @@ public class Line {
     }
 
     public Line withStations(String... stations) {
-        return new Line(this.line, this.departingFrom, Arrays.asList(stations));
+        return new Line(this.line, this.departingFrom, ImmutableList.copyOf(stations));
     }
 
     public static LineBuilder named(String lineName) {
@@ -67,10 +68,11 @@ public class Line {
 
         Line line1 = (Line) o;
 
-        if (departingFrom != null ? !departingFrom.equals(line1.departingFrom) : line1.departingFrom != null) {
+
+        if (!Objects.equals(departingFrom, line1.departingFrom)) {
             return false;
         }
-        if (line != null ? !line.equals(line1.line) : line1.line != null) {
+        if (!Objects.equals(line, line1.line)) {
             return false;
         }
 
